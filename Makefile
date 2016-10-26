@@ -3,7 +3,7 @@
 WORKING_DIR = out/make
 XWALK_VERSION = 21.51.546.7
 TARGET_VERSION = SNAPSHOT
-MAVEN_DIR = maven/org/medicmobile/xwalk_core_library/${TARGET_VERSION}
+MAVEN_DIR = maven/org/medicmobile/crosswalk/xwalk_core_library/${TARGET_VERSION}
 
 default: patch-pom deploy-local
 

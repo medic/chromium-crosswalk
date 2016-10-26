@@ -1,24 +1,28 @@
-.PHONY: default create-maven-dir patch-pom deploy-local
+.PHONY: default create-working-dir create-maven-dir patch-pom deploy-local
 
+WORKING_DIR = out/make
 XWALK_VERSION = 21.51.546.7
 TARGET_VERSION = SNAPSHOT
 MAVEN_DIR = maven/org/medicmobile/xwalk_core_library/${TARGET_VERSION}
 
 default: patch-pom deploy-local
 
+create-working-dir:
+	mkdir -p ${WORKING_DIR}
+
 create-maven-dir:
 	mkdir -p ${MAVEN_DIR} || true
 
-patch-pom: create-maven-dir
-	mkdir -p build
-	cd build && \
+patch-pom: create-maven-dir create-working-dir
+	mkdir -p ${WORKING_DIR}
+	cd ${WORKING_DIR} && \
 		wget https://download.01.org/crosswalk/releases/crosswalk/android/maven2/org/xwalk/xwalk_core_library/${XWALK_VERSION}/xwalk_core_library-${XWALK_VERSION}.pom
 	sed -i -E \
 		-e 's/${XWALK_VERSION}/${TARGET_VERSION}/' \
 		-e 's/org.xwalk/org.medicmobile.crosswalk/' \
-		build/xwalk_core_library-${XWALK_VERSION}.pom
+		${WORKING_DIR}/xwalk_core_library-${XWALK_VERSION}.pom
 	mv \
-		build/xwalk_core_library-${XWALK_VERSION}.pom \
+		${WORKING_DIR}/xwalk_core_library-${XWALK_VERSION}.pom \
 		${MAVEN_DIR}/xwalk_core_library-${TARGET_VERSION}.pom
 
 deploy-local: create-maven-dir

@@ -22,11 +22,7 @@ To include this custom `.aar` file in our projects, we use the following gradle 
 
 ## How do we build it?
 
-	cd out/Default && ninja -t clean && ninja xwalk_core_library__aar
-
-This build can take several hours, so when running on a remote server, it's advisable to use nohup, e.g.:
-
-	cd out/Default && ninja -t clean && nohup ninja xwalk_core_library__aar & tail -F nohup.out
+For details of building this code, see the repo at https://github.com/medic/crosswalk-build.
 
 ## How do we deploy it?
 

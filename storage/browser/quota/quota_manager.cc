@@ -111,8 +111,7 @@ void CountOriginType(const std::set<GURL>& origins,
        ++itr) {
     if (policy->IsStorageProtected(*itr))
       ++*protected_origins;
-    //if (policy->IsStorageUnlimited(*itr))
-    if (true)
+    if (policy->IsStorageUnlimited(*itr))
       ++*unlimited_origins;
   }
 }
@@ -907,8 +906,7 @@ void QuotaManager::GetUsageAndQuotaForWebApps(
   DCHECK(origin == origin.GetOrigin());
   LazyInitialize();
 
-  //bool unlimited = IsStorageUnlimited(origin, type);
-  bool unlimited = true;
+  bool unlimited = IsStorageUnlimited(origin, type);
   bool can_query_disk_size = CanQueryDiskSize(origin);
 
   UsageAndQuotaCallbackDispatcher* dispatcher =
@@ -947,8 +945,7 @@ void QuotaManager::GetUsageAndQuota(
     const GetUsageAndQuotaCallback& callback) {
   DCHECK(origin == origin.GetOrigin());
 
-  //if (IsStorageUnlimited(origin, type)) {
-  if (true) {
+  if (IsStorageUnlimited(origin, type)) {
     callback.Run(kQuotaStatusOk, 0, kNoLimit);
     return;
   }
@@ -1210,8 +1207,7 @@ bool QuotaManager::IsStorageUnlimited(const GURL& origin,
   if (type == kStorageTypeQuotaNotManaged)
     return true;
   return special_storage_policy_.get() &&
-         //special_storage_policy_->IsStorageUnlimited(origin);
-         true;
+         special_storage_policy_->IsStorageUnlimited(origin);
 }
 
 void QuotaManager::GetOriginsModifiedSince(StorageType type,

@@ -100,8 +100,7 @@ size_t SettingsStorageQuotaEnforcer::GetBytesInUse() {
   // All ValueStore implementations rely on GetBytesInUse being
   // implemented here.
   LazyCalculateUsage();
-  //return used_total_;
-  return 0u;
+  return used_total_;
 }
 
 ValueStore::ReadResult SettingsStorageQuotaEnforcer::Get(

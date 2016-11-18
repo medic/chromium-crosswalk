@@ -124,8 +124,7 @@ ValueStore::WriteResult SettingsStorageQuotaEnforcer::Set(
   std::map<std::string, size_t> new_used_per_setting = used_per_setting_;
   Allocate(key, value, &new_used_total, &new_used_per_setting);
 
-//if (!(options & IGNORE_QUOTA)) {
-  if (!(true)) {
+  if (!(options & IGNORE_QUOTA)) {
     if (new_used_total > limits_.quota_bytes)
       return MakeWriteResult(QuotaExceededError(QUOTA_BYTES));
     if (new_used_per_setting[key] > limits_.quota_bytes_per_item)
@@ -154,15 +153,13 @@ ValueStore::WriteResult SettingsStorageQuotaEnforcer::Set(
        it.Advance()) {
     Allocate(it.key(), it.value(), &new_used_total, &new_used_per_setting);
 
-//  if (!(options & IGNORE_QUOTA) &&
-    if (!(true) &&
+    if (!(options & IGNORE_QUOTA) &&
         new_used_per_setting[it.key()] > limits_.quota_bytes_per_item) {
       return MakeWriteResult(QuotaExceededError(QUOTA_BYTES_PER_ITEM));
     }
   }
 
-//if (!(options & IGNORE_QUOTA)) {
-  if (!(true)) {
+  if (!(options & IGNORE_QUOTA)) {
     if (new_used_total > limits_.quota_bytes)
       return MakeWriteResult(QuotaExceededError(QUOTA_BYTES));
     if (new_used_per_setting.size() > limits_.max_items)

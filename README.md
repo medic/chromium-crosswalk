@@ -4,6 +4,10 @@
 
 By default, Chrome, Chromium and Crosswalk limit the maximum space that IndexedDB can use to 10% of available disk space.  Our fork of Crosswalk aims to remove this restriction.
 
+To deactivate the storage limit, use the `--unlimited-storage` command-line flag.  On android, this can be activated by adding the flag to `src/main/assets/xwalk-command-line`.  E.g.:
+
+	xwalk --unlimited-storage --enable-logging --v=1 --enable-logging=stderr --show-fps-panel
+
 ## What do we build?
 
 	xwalk_core_library.aar
